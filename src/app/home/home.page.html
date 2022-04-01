@@ -1,20 +1,58 @@
-<ion-header [translucent]="true">
+<ion-header >
   <ion-toolbar>
     <ion-title>
-      Blank
+      Crud Kinetic
+      <!-- <ion-buttons slot="start">
+        
+      </ion-buttons> -->
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content  class="ion-padding">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="prview">
+    <ion-avatar (click)="changeImage()">
+      <img *ngIf="profile?.imageUrl; else placeholder_avatar;"  [src]="profile.imageUrl" alt="" />
+      <ng-template #placeholder_avatar>
+        <div class="fallback">
+          <p>Select Avatar</p>
+        </div>
+      </ng-template>
+    </ion-avatar>
   </div>
+
+
+
+  <ion-button (click)="logout()">
+    <ion-icon name="log-out"></ion-icon>
+    Log out
+  </ion-button>
+  <ion-searchbar class="ion-no-padding ion-padding-top" placeholder="Search." (ionInput)="filterProductData($event)"></ion-searchbar>
+
+  <!-- <ion-item>
+    <ion-label>Filter by type</ion-label>
+    <ion-select multiple (ionChange)="onChange($event)" placeholder="Select One">
+      <ion-select-option  *ngFor="let note of notes" value="{{note.type}}">{{note.type}}</ion-select-option>
+    </ion-select>
+  </ion-item> -->
+
+
+  <ion-list>
+   <ion-card *ngFor="let note of notes" (click)="openNote(note)">
+    <ion-item  >
+      <ion-label>
+        {{note.title}}
+      </ion-label>
+    </ion-item>
+   </ion-card>
+  </ion-list>
+
+
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addNote()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
