@@ -31,9 +31,10 @@ export class HomePage {
 
 
     this.dataService.getNoteTypeAnnouncement().subscribe(res => {
-      // console.log(res);
-      this.notes = res;
+      console.log(res);
+      // this.notes = res;
     })
+
 
 
     // this.onChange([]);

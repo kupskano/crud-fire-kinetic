@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collectionData, docData, Firestore, query, where } from '@angular/fire/firestore';
+import { collectionData, collectionGroup, docData, Firestore, query, setDoc, where } from '@angular/fire/firestore';
 import { addDoc, collection, deleteDoc, doc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
@@ -27,8 +27,24 @@ export class DataService {
   }
 
   getNoteTypeAnnouncement() : Observable<Note[]> {
-    const notesRef = query(collection(this.firestore,'Employee'), where("type", "==", "news"));
+    //single with wildcard
+    // const notesRef = query(collection(this.firestore,'Employee'), where("type", ">=", "new"), where("type", "<=", "new" + "~"));
+    // return collectionData(notesRef, {idField: 'id'}) as Observable<Note[]>;
+
+    // two column query
+    // const notesRef = query(collection(this.firestore, 'Employee'), where("type", "in", ["news", "announcement"]));
+    // return collectionData(notesRef, {idField: 'id'}) as Observable<Note[]>;
+
+    // contains data into two or moredd column
+
+    const notesRef = query(collectionGroup(this.firestore,'Employee'), 
+    where("title", ">=", "Kinetic"), where("title", "<=", "Kinetic" + "~"), 
+    where("text", ">=", "hi"), where("text","<=","hi"+ "~")
+    );
     return collectionData(notesRef, {idField: 'id'}) as Observable<Note[]>;
+
+
+ 
     // const citiesRef = collection(this.firestore, "Employee")
     // const q = query(citiesRef, where("type", "array-contains-any", ["news"]))
     // return collectionData(q, {idField: 'id'}) as Observable<Note[]>;

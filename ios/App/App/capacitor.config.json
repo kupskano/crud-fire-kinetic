@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "crud-fire",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
