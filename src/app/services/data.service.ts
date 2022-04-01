@@ -37,10 +37,16 @@ export class DataService {
 
     // contains data into two or moredd column
 
-    const notesRef = query(collectionGroup(this.firestore,'Employee'), 
-    where("title", ">=", "Kinetic"), where("title", "<=", "Kinetic" + "~"), 
-    where("text", ">=", "hi"), where("text","<=","hi"+ "~")
+    // const notesRef = query(collectionGroup(this.firestore,'Employee'), 
+    // where("title", ">=", "Kinetic"), where("title", "<=", "Kinetic" + "~"), 
+    // where("text", ">=", "hi"), where("text","<=","hi"+ "~")
+    // );
+    // return collectionData(notesRef, {idField: 'id'}) as Observable<Note[]>;
+
+    const notesRef= query(collection(this.firestore, 'Employee'), 
+    where("title", "==", "Kinetic"), where("text", "==", "hi")
     );
+    
     return collectionData(notesRef, {idField: 'id'}) as Observable<Note[]>;
 
 
